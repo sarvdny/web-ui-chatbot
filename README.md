@@ -38,5 +38,5 @@ And you are done! your chatbot is online.
 - This bot doesn't use memory. Means the chatbot doesn't remember the previous chats after giving a prompt.
 - If you facing any problrm related to `uv`, please check the official uv docs [Here](https://docs.astral.sh/uv/).
 ---
-be free to give some suggestions to this bot. Thankyou!
+be free to give some suggestions to this bot. Thankyou! 
 Happy Coding
