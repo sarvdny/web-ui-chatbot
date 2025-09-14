@@ -1,5 +1,4 @@
 import os
-import gradio as gr
 from openai import OpenAI
 from dotenv import load_dotenv
 from flask import Flask, request, render_template
