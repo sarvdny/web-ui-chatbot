@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <style>
+      body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 350px;
+      height: 500px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #4a90e2;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .bot {
+      background: #e1ecf7;
+      align-self: flex-start;
+    }
+
+    .user {
+      background: #4a90e2;
+      color: white;
+      align-self: flex-end;
+    }
+
+    .chat-footer {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-footer input {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .chat-footer button {
+      background: #4a90e2;
+      border: none;
+      color: white;
+      padding: 0 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .chat-footer button:hover {
+      background: #357ab8;
+    }
+
+    /* Scrollbar styling */
+    .chat-body::-webkit-scrollbar {
+      width: 5px;
+    }
+    .chat-body::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 5px;
+    }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot</title>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">ChatBot</div>
+    <div class="chat-body" id="chat-body">
+      <div class="message bot">Hello! How can I help you today?</div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="user-input" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+    <script>
+      const chatBody = document.getElementById("chat-body");
+    const userInput = document.getElementById("user-input");
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (text === "") return;
+
+      // Add user message
+      appendMessage(text, "user");
+      userInput.value = "";
+
+      // Simulate bot response
+      setTimeout(() => {
+        const botReply = getBotResponse(text);
+        appendMessage(botReply, "bot");
+      }, 600);
+    }
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.classList.add("message", sender);
+      msg.textContent = text;
+      chatBody.appendChild(msg);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+    // Simulated bot response function
+     function getBotResponse(input) {
+      $.post('/chat', {message: input}, function(data) {
+           appendMessage(data, "bot");
+      });
+    }
+
+    // Send message on Enter key
+    userInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+    </script>
+</body>
+</html>
